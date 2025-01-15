@@ -1,6 +1,9 @@
 <?php
 require 'navbar.php'
 ?>
+<script src="js/dashboard/getUserInfo.js">
+
+</script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
@@ -18,7 +21,7 @@ require 'navbar.php'
 
                     <div class="flex items-center space-x-2">
                         <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium" id="userName">John Doe</span>
+                        <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
             </div>
@@ -118,6 +121,7 @@ require 'navbar.php'
     </div>
 </div>
 </div>
+
 <?php
 require 'footer.php'
 ?>
