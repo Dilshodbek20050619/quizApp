@@ -1,12 +1,10 @@
-<?php
-require 'navbar.php'
-?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<?php components('dashboard/header'); ?>
+    <script src="/js/dashboard/getUserInfo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
-    <?php require 'saidbar.php'?>
-
+    <?php components('dashboard/sidebar'); ?>
     <!-- Main Content -->
     <div class="flex-1">
         <!-- Top Navigation -->
@@ -18,8 +16,8 @@ require 'navbar.php'
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium" id="userName">John Doe</span>
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                        <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
             </div>
@@ -184,7 +182,4 @@ require 'navbar.php'
     });
 </script>
 </div>
-<?php
-require 'footer.php'
-?>
-
+<?php components('dashboard/footer'); ?>

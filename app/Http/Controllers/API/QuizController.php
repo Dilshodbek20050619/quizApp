@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use JetBrains\PhpStorm\NoReturn;
 use Src\Auth;
 
 
 class QuizController
 {
-    public function storeQuiz()
+    #[NoReturn] public function store(): void
     {
-            apiResponse(['message' => 'User not logged in successfully',],201);
+        apiResponse(['message' => 'quiz successfully created'], 201);
     }
 }

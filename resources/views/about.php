@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Quiz App</title>
-    <link rel="stylesheet" href="css/output.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="bg-gray-50">
+<?php components('dashboard/header'); ?>
+    <body class="bg-gray-50">
 <!-- Navigation -->
 <nav class="bg-white shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,9 +153,9 @@
             <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
             <ul class="space-y-2">
                 <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
-                <li><a href="/about.html" class="text-gray-400 hover:text-white">About</a></li>
-                <li><a href="/login.html" class="text-gray-400 hover:text-white">Login</a></li>
-                <li><a href="/register.html" class="text-gray-400 hover:text-white">Register</a></li>
+                <li><a href="/about" class="text-gray-400 hover:text-white">About</a></li>
+                <li><a href="/login" class="text-gray-400 hover:text-white">Login</a></li>
+                <li><a href="/register" class="text-gray-400 hover:text-white">Register</a></li>
             </ul>
         </div>
         <div>
@@ -196,5 +188,4 @@
         mobileMenu.classList.toggle('hidden');
     });
 </script>
-</body>
-</html>
+<?php components('dashboard/footer'); ?>

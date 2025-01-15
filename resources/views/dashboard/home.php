@@ -1,14 +1,9 @@
-<?php
-require 'navbar.php'
-?>
-<script src="js/dashboard/getUserInfo.js">
-
-</script>
+<?php components('dashboard/header'); ?>
+<script src="js/dashboard/getUserInfo.js"></script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
-    <?php require 'saidbar.php'?>
-
+<?php components('dashboard/sidebar'); ?>
     <!-- Main Content -->
     <div class="flex-1 flex flex-col">
         <!-- Top Navigation -->
@@ -20,7 +15,7 @@ require 'navbar.php'
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
                         <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
@@ -32,12 +27,12 @@ require 'navbar.php'
             <!-- Quick Actions -->
             <div class="mb-8">
                 <div class="flex flex-wrap gap-4">
-                    <a href="/createquiz" class="flex-1 min-w-[200px] bg-blue-600 text-white p-4 rounded-lg shadow hover:bg-blue-700 transition">
+                    <a href="/dashboard/create-quiz" class="flex-1 min-w-[200px] bg-blue-600 text-white p-4 rounded-lg shadow hover:bg-blue-700 transition">
                         <i class="fas fa-plus mb-2 text-2xl"></i>
                         <h3 class="font-semibold">Create New Quiz</h3>
                         <p class="text-sm opacity-90">Start creating a new quiz</p>
                     </a>
-                    <a href="/statistics" class="flex-1 min-w-[200px] bg-green-600 text-white p-4 rounded-lg shadow hover:bg-green-700 transition">
+                    <a href="/dashboard/statistics" class="flex-1 min-w-[200px] bg-green-600 text-white p-4 rounded-lg shadow hover:bg-green-700 transition">
                         <i class="fas fa-chart-line mb-2 text-2xl"></i>
                         <h3 class="font-semibold">View Statistics</h3>
                         <p class="text-sm opacity-90">Check your progress</p>
@@ -100,7 +95,7 @@ require 'navbar.php'
                             <i class="fas fa-check text-green-500"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-medium">Completed quiz</h4>
+                            w<h4 class="font-medium">Completed quiz</h4>
                             <p class="text-sm text-gray-500">Science Quiz - Score: 92%</p>
                         </div>
                         <span class="text-sm text-gray-500">1d ago</span>
@@ -121,7 +116,4 @@ require 'navbar.php'
     </div>
 </div>
 </div>
-
-<?php
-require 'footer.php'
-?>
+<?php components('dashboard/footer'); ?>

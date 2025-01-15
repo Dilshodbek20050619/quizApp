@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\DB;
 
-class Question extends DB
+class Option extends DB
 {
 
 }

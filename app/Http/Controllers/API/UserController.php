@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\Validator;
 use JetBrains\PhpStorm\NoReturn;
 use Random\RandomException;
+use Src\Auth;
 
 class UserController
 {
@@ -29,6 +30,10 @@ class UserController
         ],
             201);
     }
+
+    /**
+     * @throws RandomException
+     */
     #[NoReturn] public function login(): void
     {
         $userData = $this->validate([
@@ -43,17 +48,18 @@ class UserController
             ]);
         }
         apiResponse([
-            'message' => 'User not logged in successfully',
+            'errors' => [
+                'error' => 'Invalid email or password'
+            ]
         ], 401);
     }
 
-    public function show()
+    #[NoReturn] public function show(): void
     {
+        $user = Auth::user();
         apiResponse([
-            'user'=>[
-                'name'=>'John Doe',
-                'email'=>'john@doe.com',
-            ]
+            'message' => 'User information',
+            'data' => $user
         ]);
     }
 

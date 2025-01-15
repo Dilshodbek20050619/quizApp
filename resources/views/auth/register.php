@@ -1,6 +1,4 @@
-<?php
-require 'navbar.php'
-?>
+<?php components('dashboard/header'); ?>
 <div class="bg-gray-50">
 <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
@@ -13,7 +11,7 @@ require 'navbar.php'
                 </a>
             </p>
         </div>
-        <form id="form" class="mt-8 space-y-6" onsubmit="register()">
+        <form onsubmit="register()" id="form" class="mt-8 space-y-6" method="POST">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="name" class="sr-only">Full name</label>
@@ -48,9 +46,8 @@ require 'navbar.php'
                     I agree to the
                     <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a>
                 </label>
-                <div class="error"></div>
             </div>
-
+            <div id="error"></div>
             <div>
                 <button type="submit"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -62,17 +59,18 @@ require 'navbar.php'
 </div>
 <script>
     async function register(){
-        event.preventDefault()
+        event.preventDefault();
         let form = document.getElementById("form"),
             formData = new FormData(form);
 
-        const {default: apiFetch } = await import('/js/utils/apiFetch.js');
+        const {default: apiFetch } = await import('./js/utils/apiFetch.js');
         await apiFetch('/register', {method: 'POST', body: formData})
             .then((data) => {
-                localStorage.setItem('token', data.tokens)
+                localStorage.setItem('token', data.token)
                 window.location.href = '/dashboard';
             })
             .catch((error) => {
+                document.getElementById('error').innerHTML = '';
                 console.error(error.data);
                 Object.keys(error.data.errors).forEach(err => {
                     document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
@@ -80,7 +78,4 @@ require 'navbar.php'
             });
     }
 </script>
-</div>
-<?php
-require 'footer.php'
-?>
+<?php components('dashboard/footer'); ?>

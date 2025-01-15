@@ -11,10 +11,9 @@ function apiFetch(uri,options={}){
     })
         .then(async response=>{
             if(!response.ok){
-                if (response.status===401){
-                    if (window.location.pathname==='/login' || window.location.pathname==='/register'){
-
-                    }else {
+                if(response.status === 401){
+                    if(window.location.pathname === '/login' || window.location.pathname === '/register'){
+                    }else{
                         window.location.href='/login';
                     }
                 }
