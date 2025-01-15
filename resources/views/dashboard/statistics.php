@@ -1,33 +1,11 @@
 <?php
 require 'navbar.php'
 ?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="bg-white w-64 min-h-screen flex flex-col shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in fixed md:static z-30" id="sidebar">
-        <div class="p-4 border-b flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-gray-800">Quiz App</h2>
-            <div>
-                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
-                    <i class="fas fa-close text-xl"></i>
-                </button>
-            </div>
-        </div>
-        <nav class="flex-grow p-4">
-            <a href="/dashboard" class="block p-3 mb-2 text-gray-800 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-home mr-2"></i> Dashboard
-            </a>
-            <a href="/quizzes" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-book mr-2"></i> My Quizzes
-            </a>
-            <a href="/createquiz" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                <i class="fas fa-plus mr-2"></i> Create Quiz
-            </a>
-            <a href="/statistics" class="block p-3 mb-2 text-gray-600 bg-gray-100 rounded-lg">
-                <i class="fas fa-chart-bar mr-2"></i> Statistics
-            </a>
-        </nav>
-    </aside>
+    <?php require 'saidbar.php'?>
 
     <!-- Main Content -->
     <div class="flex-1">
@@ -40,8 +18,8 @@ require 'navbar.php'
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium">John Doe</span>
+                        <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png" alt="Profile" class="w-10 h-10 rounded-full">
+                        <span class="text-gray-700 font-medium" id="userName">John Doe</span>
                     </div>
                 </div>
             </div>

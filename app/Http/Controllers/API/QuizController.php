@@ -7,16 +7,8 @@ use Src\Auth;
 
 class QuizController
 {
-    public function store()
+    public function storeQuiz()
     {
-        if (Auth::check()) {
-            $headers = getallheaders();
-            $token = $headers['Authorization'];
-            $token = str_replace('Bearer ', '', $token);
-            apiResponse([
-                'message' => 'User not logged in successfully',
-
-            ],201);
-        }
+            apiResponse(['message' => 'User not logged in successfully',],201);
     }
 }
