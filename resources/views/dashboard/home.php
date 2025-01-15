@@ -15,7 +15,7 @@
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNHG7RXDNemVraC50-CavzN5eUYCgzYAp9DA&s" alt="Profile" class="w-10 h-10 rounded-full">
                         <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
