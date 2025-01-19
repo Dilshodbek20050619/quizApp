@@ -22,6 +22,11 @@ class UserController
     {
         view('dashboard/statistics');
     }
+
+    public function take_quiz():void
+    {
+        view('quiz/takeQuiz');
+    }
     #[NoReturn] public function handlePost(): void
     {
         dd($_REQUEST);

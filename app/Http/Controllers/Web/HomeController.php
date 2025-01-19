@@ -11,6 +11,9 @@ class HomeController
     public function statistics(): void{ view('dashboard/statistics');}
     public function createquiz(): void{ view('dashboard/createquiz');}
 
+    public function takeQuiz():void{view('quiz/takeQuiz');}
+
+
     public function handpost():void{
         dd($_REQUEST);
     }
