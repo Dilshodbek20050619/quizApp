@@ -62,7 +62,7 @@
             </div>
 
             <!-- Quiz Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="quizList">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="quizList"></div>
 
             </div>
         </main>
@@ -71,60 +71,59 @@
 </div>
     <script>
         async function quizzes() {
-                const { default: apiFetch } = await import('/js/utils/apiFetch.js'),
-                    quizList=document.getElementById('quizList');
-                await apiFetch('/quizzes', { method: 'GET' })
-                    .then((data)=>{
-                data.quizzes = undefined;
-                console.log(data.quizzes);
-                        data.quizzes.forEach((quiz)=>{
-                            quizList.innerHTML+=`
-                                <div class="bg-white rounded-lg shadow-sm p-6">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h3 class="text-lg font-semibold">${quiz.title}</h3>
-                                            <p class="text-gray-500 text-sm">Mathematics</p>
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="p-2 hover:bg-gray-100 rounded-full">
-                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 mb-4">${quiz.description}</p>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-sm text-gray-500">10 Questions</span>
-                                        <span class="text-sm text-gray-500">${quiz.time_limit}</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="w-full bg-gray-200 rounded-full h-2">
-                                            <div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
-                                        </div>
-                                        <span class="text-sm text-gray-500">75% Completion Rate</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <button class="text-indigo-600 hover:text-indigo-800">Edit</button>
-                                        <button class="text-green-600 hover:text-green-800">View Results</button>
-                                        <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
-                                    </div>
-                                </div>
-                        `
+            const { default: apiFetch } = await import('/js/utils/apiFetch.js');
+            const quizList = document.getElementById('quizList');
+            await apiFetch('/quizzes', { method: 'GET' })
+                .then((data) => {
+                    data.quizzes = undefined;
+                    console.log(data.quizzes);
+                    data.quizzes.forEach((quiz) => {
+                        quizList.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold">${quiz.title}</h3>
+                                <p class="text-gray-500 text-sm">Mathematics</p>
+                            </div>
+                            <div class="dropdown">
+                                <button class="p-2 hover:bg-gray-100 rounded-full">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">${quiz.description}</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm text-gray-500">10 Questions</span>
+                            <span class="text-sm text-gray-500">${quiz.time_limit}</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <span class="text-sm text-gray-500">75% Completion Rate</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="dashboard/quizzes/${quiz.id}/update" class="text-indigo-600 hover:text-indigo-800">Edit</a>
+                            <button class="text-green-600 hover:text-green-800">View Results</button>
+                            <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
+                        </div>
+                    </div>
+                `;
                     });
                 })
-                    .catch (error)=>{
-                        alert('Internetinga qara');
-
-            });
+                .catch((error) => {
+                    alert('Internetinga qara');
+                });
         }
         quizzes();
-        async function deleteQuiz(id){
-            if (confirm("Rosdan o'chirmoqchimisiz?")){
-                const {default: apiFetch } = await import('./js/utils/apiFetch.js');
-                await apiFetch(`/quizzes/${id}`, {method: 'DELETE'})
+        async function deleteQuiz(id) {
+            if (confirm("Rosdan o'chirmoqchimisiz?")) {
+                const { default: apiFetch } = await import('./js/utils/apiFetch.js');
+                await apiFetch(`/quizzes/${id}`, { method: 'DELETE' })
                     .then((data) => {
-x                        window.location.href = '/dashboard/quizzes';
+                        window.location.href = '/dashboard/quizzes';
                     })
                     .catch((error) => {
                         alert("Internetda mommo bor");

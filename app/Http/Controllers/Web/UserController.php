@@ -27,8 +27,10 @@ class UserController
     {
         view('quiz/takeQuiz');
     }
-    #[NoReturn] public function handlePost(): void
+    public function update(int $id):void
     {
-        dd($_REQUEST);
+        view('dashboard/update-quiz', [
+            'id' => $id
+        ]);
     }
 }

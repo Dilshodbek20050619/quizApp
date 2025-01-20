@@ -57,4 +57,36 @@ class QuizController
             'message'=>'Quiz delete successfuly',
         ]);
     }
+    public function update(int $quizId)
+    {
+        $quizItems=$this->validate([
+            'title'=>'string',
+            'description'=>'string',
+            'timeLimit'=>'int',
+            'questions'=>'array'
+        ]);
+        $quiz=new Quiz();
+        $question=new Question();
+        $option=new Option();
+        //update quiz
+        $quiz->update($quizId,
+            $quizItems['title'],
+            $quizItems['description'],
+            $quizItems['timeLimit']
+        );
+        //destroy all questions and options
+        $question->deleteByQuizId($quizId);
+
+        //create new questions and options
+        $questions=$quizItems['questions'];
+
+        foreach ($questions as $questionItem){
+            $question_id=$question->create($quizId,$questionItem['quiz']);
+            $correct=$questionItem['correct'];
+            foreach ($questionItem['options'] as $key=>$optionItem){
+                $option->create($question_id,$optionItem,$correct==$key);
+            }
+        }
+        apiResponse(['message'=>'Quiz updated successfully ',],201);
+    }
 }

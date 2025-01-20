@@ -18,5 +18,16 @@ class Question extends DB
         ]);
         return $this->conn->lastInsertId();
     }
+    public function deleteByQuizId(int $questionId): bool
+    {
+        $query = "DELETE FROM questions WHERE id = :questionId";
+        $stmt = $this->conn->prepare($query);
+
+        // PDO execute() method is called here
+        return $stmt->execute([
+            ':questionId' => $questionId
+        ]);
+    }
+
 
 }
