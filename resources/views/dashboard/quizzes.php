@@ -75,7 +75,7 @@
             const quizList = document.getElementById('quizList');
             await apiFetch('/quizzes', { method: 'GET' })
                 .then((data) => {
-                    data.quizzes = undefined;
+                    data.quizzes = data.quizzes || [];
                     console.log(data.quizzes);
                     data.quizzes.forEach((quiz) => {
                         quizList.innerHTML += `
@@ -120,7 +120,7 @@
         quizzes();
         async function deleteQuiz(id) {
             if (confirm("Rosdan o'chirmoqchimisiz?")) {
-                const { default: apiFetch } = await import('./js/utils/apiFetch.js');
+                const { default: apiFetch } = await import('/js/utils/apiFetch.js');
                 await apiFetch(`/quizzes/${id}`, { method: 'DELETE' })
                     .then((data) => {
                         window.location.href = '/dashboard/quizzes';
