@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take Quiz - Quiz Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex flex-col min-h-screen bg-gray-100">
+<?php components('dashboard/header'); ?>
+<div class="flex flex-col min-h-screen bg-gray-100">
 <!-- Navigation -->
 <nav class="bg-white shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between">
             <div class="flex space-x-7">
                 <div>
-                    <a href="index.html" class="flex items-center py-4 px-2">
+                    <a href="/" class="flex items-center py-4 px-2">
                         <span class="font-semibold text-gray-500 text-lg">Quiz Platform</span>
                     </a>
                 </div>
             </div>
             <div class="flex items-center space-x-3">
                 <a href="/dashboard" class="py-2 px-4 text-gray-500 hover:text-gray-700">Dashboard</a>
-                <a href="profile.html" class="py-2 px-4 text-gray-500 hover:text-gray-700">Profile</a>
+                <a href="/dashboard/create-quiz" class="py-2 px-4 text-gray-500 hover:text-gray-700">Create Quiz</a>
             </div>
         </div>
     </div>
@@ -55,11 +48,11 @@
         <!-- Question Container -->
         <div class="mb-8">
             <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">What is the output of console.log(typeof undefined)?</h2>
+                <h2 class="text-lg font-semibold text-gray-800" id="question">What is the output of console.log(typeof undefined)?</h2>
             </div>
 
             <!-- Options -->
-            <div class="space-y-3">
+            <div class="space-y-3" id="options">
                 <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                     <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="a">
                     <span class="ml-3">undefined</span>
@@ -124,23 +117,128 @@
     }
 
     // Initialize quiz
+    let options = document.getElementById('options'),
+        questions = [
+            {
+                'id':1,
+                'question': 'What is the output of console.log(typeof undefined)?',
+                'options': [
+                    {
+                        'id':1,
+                        'option_text':'undefined'
+                    },
+                    {
+                        'id':2,
+                        'option_text':'object'
+                    },
+                    {
+                        'id':3,
+                        'option_text':'string'
+                    },
+                    {
+                        'id':4,
+                        'option_text':'null'
+                    }
+                ],
+            },
+            {
+                'id':2,
+                'question': 'What is the output of console.log(typeof null)?',
+                'options': [
+                    {
+                        'id':1,
+                        'option_text':'undefined'
+                    },
+                    {
+                        'id':2,
+                        'option_text':'object'
+                    },
+                    {
+                        'id':3,
+                        'option_text':'string'
+                    },
+                    {
+                        'id':4,
+                        'option_text':'null'
+                    }
+                ],
+            },
+            {
+                'id':3,
+                'question': 'What is the output of console.log(typeof {})?',
+                'options': [
+                    {
+                        'id':1,
+                        'option_text':'undefined'
+                    },
+                    {
+                        'id':2,
+                        'option_text':'object'
+                    },
+                    {
+                        'id':3,
+                        'option_text':'string'
+                    },
+                    {
+                        'id':4,
+                        'option_text':'null'
+                    }
+                ],
+            }
+        ],
+        currentQuestionIndex = 0;
+
+    function takeQuiz(index=0) {
+        return questions[index];
+    }
     document.addEventListener('DOMContentLoaded', () => {
         const timerDisplay = document.getElementById('timer');
         startTimer(1200, timerDisplay); // 20 minutes
 
         // Add event listeners for navigation buttons
         document.getElementById('next-btn').addEventListener('click', () => {
-            // Handle next question
+            currentQuestionIndex++;
+            let question = takeQuiz(currentQuestionIndex);
+            if (question) {
+                let questionElement = document.getElementById('question');
+                questionElement.textContent = question.question;
+                options.innerHTML = '';
+                question.options.forEach((option) => {
+                    options.innerHTML += `
+                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="${option.id}">
+                    <span class="ml-3">${option.option_text}</span>
+                </label>`
+                });
+            } else {
+                alert('Quiz completed');
+            }
         });
 
         document.getElementById('prev-btn').addEventListener('click', () => {
-            // Handle previous question
+            currentQuestionIndex--;
+            let question = takeQuiz(currentQuestionIndex);
+            if (question) {
+                let questionElement = document.getElementById('question');
+                questionElement.textContent = question.question;
+                options.innerHTML = '';
+                question.options.forEach((option) => {
+                    options.innerHTML += `
+                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="${option.id}">
+                    <span class="ml-3">${option.option_text}</span>
+                </label>`
+                });
+            } else {
+                alert('You are at the first question');
+            }
         });
 
         document.getElementById('submit-quiz').addEventListener('click', () => {
+            console.log(currentQuestionIndex);
             // Handle quiz submission
         });
     });
 </script>
-</body>
-</html><?php
+</div>
+<?php components('dashboard/footer'); ?>

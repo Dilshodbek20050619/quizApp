@@ -22,12 +22,12 @@ class UserController
     {
         view('dashboard/statistics');
     }
-
-    public function take_quiz():void
+    public function takeQuiz(): void
     {
         view('quiz/takeQuiz');
     }
-    public function update(int $id):void
+
+    public function update(int $id): void
     {
         view('dashboard/update-quiz', [
             'id' => $id

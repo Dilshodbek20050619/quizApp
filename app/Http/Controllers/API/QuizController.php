@@ -14,79 +14,88 @@ class QuizController
 {
     use Validator;
 
-    public function index(): void
+    #[NoReturn] public function index(): void
     {
-        $quizzes=(new Quiz())->getByUserId(Auth::user()->id);
-        apiResponse(['quizzes'=>$quizzes]);
+        $userId = Auth::user()->id;
+        $quiz = new Quiz();
+        $quizzes = $quiz->getByUserId($userId);
+        apiResponse(['quizzes' => $quizzes]);
     }
-     public function store(): void
+
+    #[NoReturn] public function show(int $quizId): void
     {
-
-        $quizItems=$this->validate([
-            'title'=>'string',
-            'description'=>'string',
-            'timeLimit'=>'int',
-            'questions'=>'array'
+        $quiz = (new Quiz())->find($quizId);
+        $questions = (new Question())->getWithOptions($quizId);
+        $quiz->questions = $questions;
+        apiResponse($quiz);
+    }
+    #[NoReturn] public function store(): void
+    {
+        $quizItems = $this->validate([
+           'title' => 'string',
+            'description' => 'string',
+            'timeLimit' => 'integer',
+            'questions' => 'array',
         ]);
-        $quiz=new Quiz();
-        $question=new Question();
-        $option=new Option();
 
-        $quiz_id=$quiz->create(Auth::user()->id,
+        $quiz = new Quiz();
+        $question = new Question();
+        $option = new Option();
+
+        $quiz_id = $quiz->create(
+            Auth::user()->id,
             $quizItems['title'],
             $quizItems['description'],
-            $quizItems['timeLimit']
+            $quizItems['timeLimit'],
         );
-        $questions=$quizItems['questions'];
+        $questions = $quizItems['questions'];
 
-        foreach ($questions as $questionItem){
-            $question_id=$question->create($quiz_id,$questionItem['quiz']);
-            $correct=$questionItem['correct'];
-            foreach ($questionItem['options'] as $key=>$optionItem){
-                $option->create($question_id,$optionItem,$correct==$key);
+        foreach ($questions as $questionItem) {
+            $question_id = $question->create($quiz_id, $questionItem['quiz']);
+            $correct = $questionItem['correct'];
+            foreach ($questionItem['options'] as $key => $optionItem) {
+                $option->create($question_id, $optionItem, $correct == $key);
             }
         }
-        apiResponse(['message'=>'Quiz created successfully ',],201);
+        apiResponse(['message' => 'quiz successfully created'], 201);
     }
 
-    public function destroy(int $quizId)
+    #[NoReturn] public function update($quizId): void
     {
-        $quiz=new Quiz();
-        $quiz->delete($quizId);
-        apiResponse([
-            'message'=>'Quiz delete successfuly',
+        $quizItems = $this->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'timeLimit' => 'required',
         ]);
-    }
-    public function update(int $quizId)
-    {
-        $quizItems=$this->validate([
-            'title'=>'string',
-            'description'=>'string',
-            'timeLimit'=>'int',
-            'questions'=>'array'
-        ]);
-        $quiz=new Quiz();
-        $question=new Question();
-        $option=new Option();
-        //update quiz
-        $quiz->update($quizId,
+
+        $quiz = new Quiz();
+        $question = new Question();
+        $option = new Option();
+
+        $quiz->update(
+            $quizId,
             $quizItems['title'],
             $quizItems['description'],
-            $quizItems['timeLimit']
+            $quizItems['timeLimit'],
         );
-        //destroy all questions and options
+
         $question->deleteByQuizId($quizId);
 
-        //create new questions and options
-        $questions=$quizItems['questions'];
+        $questions = $quizItems['questions'];
 
-        foreach ($questions as $questionItem){
-            $question_id=$question->create($quizId,$questionItem['quiz']);
-            $correct=$questionItem['correct'];
-            foreach ($questionItem['options'] as $key=>$optionItem){
-                $option->create($question_id,$optionItem,$correct==$key);
+        foreach ($questions as $questionItem) {
+            $question_id = $question->create($quizId, $questionItem['quiz']);
+            $correct = $questionItem['correct'];
+            foreach ($questionItem['options'] as $key => $optionItem) {
+                $option->create($question_id, $optionItem, $correct == $key);
             }
         }
-        apiResponse(['message'=>'Quiz updated successfully ',],201);
+        apiResponse(['message' => 'quiz successfully updated'], 201);
+    }
+    #[NoReturn] public function destroy(int $quizId): void
+    {
+        $quiz = new Quiz();
+        $quiz->delete($quizId);
+        apiResponse(['message' => 'quiz successfully deleted']);
     }
 }

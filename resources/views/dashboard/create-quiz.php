@@ -16,7 +16,7 @@
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNHG7RXDNemVraC50-CavzN5eUYCgzYAp9DA&s" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
                         <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
@@ -119,23 +119,24 @@
     </div>
 </div>
 </div>
-    <script>
-        async function createQuiz(){
-            event.preventDefault();
-            let form = document.getElementById("quizForm"),
-                formData = new FormData(form);
+<script>
+    async function createQuiz(){
+        event.preventDefault();
+        let form = document.getElementById("quizForm"),
+            formData = new FormData(form);
 
-            const {default: apiFetch } = await import('/js/utils/apiFetch.js');
-            await apiFetch('/quizzes', {method: 'POST', body: formData})
-                .then((data) => {
-                    window.location.href='/dashboard/quizzes'
+        const {default: apiFetch } = await import('/js/utils/apiFetch.js');
+        await apiFetch('/quizzes', {method: 'POST', body: formData})
+            .then((data) => {
+                window.location.href = '/dashboard/quizzes';
+            })
+            .catch((error) => {
+                document.getElementById('error').innerHTML = '';
+                console.error(error.data);
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
                 })
-                .catch((error) => {
-                    document.getElementById('error').innerHTML = '';
-                    Object.keys(error.data.errors).forEach(err => {
-                        document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
-                    })
-                });
-        }
-    </script>
+            });
+    }
+</script>
 <?php components('dashboard/footer'); ?>

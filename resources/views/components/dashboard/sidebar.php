@@ -5,7 +5,9 @@
             <i class="fas fa-close text-xl"></i>
         </button>
     </div>
-    <nav class="flex-grow p-4" id="sideBar"></nav>
+    <nav class="flex-grow p-4" id="sideBar">
+
+    </nav>
 </aside>
 <script>
     let sidebarItems = [
